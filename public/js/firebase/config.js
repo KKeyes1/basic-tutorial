@@ -38,4 +38,19 @@ firebase.firestore().enablePersistence({ synchronizeTabs: true })
 window.firebaseServices = {
   auth,
   db
-}; 
+};
+
+// Initialize authentication and API modules when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Firebase initialized successfully');
+  
+  // Initialize authentication module if available
+  if (window.authModule && typeof window.authModule.init === 'function') {
+    window.authModule.init();
+  }
+  
+  // Initialize OpenAI module if available
+  if (window.openaiModule && typeof window.openaiModule.init === 'function') {
+    window.openaiModule.init();
+  }
+}); 

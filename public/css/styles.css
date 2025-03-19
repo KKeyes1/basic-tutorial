@@ -571,4 +571,73 @@ footer p {
   #demo-container {
     padding: 1rem;
   }
+}
+
+/* API Key Configuration Styles */
+.button-group {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 15px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #3367d6;
+}
+
+.btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+#api-key-status {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+#api-key-status.success {
+  background-color: #e8f5e9;
+  color: var(--success-color);
+}
+
+#api-key-status.error {
+  background-color: #ffebee;
+  color: var(--error-color);
+}
+
+#api-key-status.loading {
+  background-color: #e3f2fd;
+  color: var(--primary-color);
+}
+
+/* Message Loading Indicator */
+.message.loading {
+  position: relative;
+  min-height: 40px;
+}
+
+.message.loading:after {
+  content: "...";
+  display: inline-block;
+  animation: ellipsis 1.5s infinite;
+  width: 1.5em;
+  text-align: left;
+}
+
+@keyframes ellipsis {
+  0% { content: "."; }
+  33% { content: ".."; }
+  66% { content: "..."; }
 } 
