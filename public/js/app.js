@@ -169,7 +169,7 @@ function initDemoFeatures() {
 // ----- STEP 5: OPENAI API KEY MANAGEMENT -----
 // Handle saving and validating the OpenAI API key
 function initApiKeyFeature() {
-    const apiKeyInput = document.getElementById('api-key-input');
+    const apiKeyInput = document.getElementById('api-key');
     const saveKeyBtn = document.getElementById('save-key-btn');
     const clearKeyBtn = document.getElementById('clear-key-btn');
     const apiKeyStatus = document.getElementById('api-key-status');
@@ -222,8 +222,7 @@ function checkApiKey() {
     const apiKey = sessionStorage.getItem('openai_api_key');
     const apiKeyStatus = document.getElementById('api-key-status');
     const clearKeyBtn = document.getElementById('clear-key-btn');
-    const apiKeyInput = document.getElementById('api-key-input');
-    const apiKeyContainer = document.getElementById('api-key-container');
+    const apiKeyInput = document.getElementById('api-key');
     const chatContainer = document.getElementById('chat-container');
     
     if (apiKey) {
@@ -235,7 +234,6 @@ function checkApiKey() {
         
         // Show clear button, enable chat
         if (clearKeyBtn) clearKeyBtn.classList.remove('hidden');
-        if (apiKeyContainer) apiKeyContainer.classList.add('configured');
         if (chatContainer) chatContainer.classList.remove('hidden');
     } else {
         // No key found
@@ -246,7 +244,6 @@ function checkApiKey() {
         
         // Hide clear button, disable chat
         if (clearKeyBtn) clearKeyBtn.classList.add('hidden');
-        if (apiKeyContainer) apiKeyContainer.classList.remove('configured');
         if (chatContainer) chatContainer.classList.add('hidden');
     }
 }

@@ -262,8 +262,10 @@ function init() {
     
     // Find DOM elements
     const apiKeyInput = document.getElementById('api-key');
-    const sendPromptBtn = document.getElementById('send-prompt-btn');
+    const saveKeyBtn = document.getElementById('save-key-btn');
+    const clearKeyBtn = document.getElementById('clear-key-btn');
     const promptInput = document.getElementById('prompt-input');
+    const sendPromptBtn = document.getElementById('send-prompt-btn');
     const messagesContainer = document.getElementById('messages-container');
     
     // Check for API key in session storage
@@ -288,6 +290,33 @@ function init() {
                     displayStatusMessage('Invalid API key format', 'error');
                 }
             }
+        });
+    }
+    
+    // Setup save key button event
+    if (saveKeyBtn) {
+        saveKeyBtn.addEventListener('click', () => {
+            const newApiKey = apiKeyInput.value.trim();
+            
+            if (newApiKey && newApiKey !== '••••••••••••••••••••••••••') {
+                // Validate and save key
+                if (openaiApi.saveApiKey(newApiKey)) {
+                    console.log('API key saved to session storage');
+                    apiKeyInput.value = '••••••••••••••••••••••••••';
+                    displayStatusMessage('API key saved for this session', 'success');
+                } else {
+                    displayStatusMessage('Invalid API key format', 'error');
+                }
+            }
+        });
+    }
+    
+    // Setup clear key button event
+    if (clearKeyBtn) {
+        clearKeyBtn.addEventListener('click', () => {
+            openaiApi.clearApiKey();
+            apiKeyInput.value = '';
+            displayStatusMessage('API key removed', 'success');
         });
     }
     
