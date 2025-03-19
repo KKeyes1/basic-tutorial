@@ -9,6 +9,7 @@
   --success-color: #4caf50;
   --warning-color: #ff9800;
   --error-color: #f44336;
+  --vibe-color: #8e44ad; /* Cursor AI purple */
 }
 
 * {
@@ -87,6 +88,10 @@ nav ul li a:hover::after {
   width: 100%;
 }
 
+nav ul li a.active::after {
+  width: 100%;
+}
+
 #auth-container {
   display: flex;
   align-items: center;
@@ -142,10 +147,17 @@ main {
 }
 
 .page-section h2 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: var(--primary-color);
   border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.5rem;
+}
+
+.section-intro {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+  max-width: 900px;
 }
 
 /* Setup Section Styles */
@@ -175,12 +187,69 @@ main {
   margin-bottom: 0.75rem;
 }
 
+.setup-content li ul,
+.setup-content li ol {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tip {
+  background-color: #e8f5e9;
+  border-left: 4px solid var(--secondary-color);
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  border-radius: 0 4px 4px 0;
+}
+
+.code-snippet {
+  background-color: #f5f5f5;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+  font-family: 'Courier New', Courier, monospace;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  color: #333;
+}
+
+/* VIBE Prompt Styles */
+.vibe-prompt {
+  background-color: #f3e5f5;
+  border-left: 4px solid var(--vibe-color);
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 0 4px 4px 0;
+}
+
+.vibe-prompt h4 {
+  color: var(--vibe-color);
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.vibe-prompt p {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #333;
+}
+
 /* Demo Section Styles */
 #auth-notice {
   background-color: #fffde7;
   padding: 1rem;
   border-left: 4px solid var(--warning-color);
   margin-bottom: 1.5rem;
+  border-radius: 0 4px 4px 0;
+}
+
+#auth-notice p {
+  margin-bottom: 0.75rem;
+}
+
+#auth-notice ul {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 #demo-container {
@@ -252,6 +321,30 @@ main {
   background-color: #f1f8e9;
 }
 
+.status-message {
+  background-color: #f5f5f5;
+  color: #666;
+  text-align: center;
+  max-width: 100%;
+  margin: 0.5rem auto;
+  font-size: 0.9rem;
+}
+
+.status-message.success {
+  background-color: #e8f5e9;
+  color: var(--success-color);
+}
+
+.status-message.error {
+  background-color: #ffebee;
+  color: var(--error-color);
+}
+
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
 #input-container {
   display: flex;
   border-top: 1px solid var(--border-color);
@@ -286,7 +379,12 @@ main {
 }
 
 #saved-prompts h4 {
+  margin-bottom: 0.5rem;
+}
+
+#saved-prompts p {
   margin-bottom: 1rem;
+  color: #666;
 }
 
 #saved-prompts-list {
@@ -309,6 +407,26 @@ main {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+.feature-explanation {
+  margin-top: 2rem;
+  background-color: #e8f5e9;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.feature-explanation h4 {
+  color: var(--secondary-color);
+  margin-bottom: 0.75rem;
+}
+
+.feature-explanation ol {
+  margin-left: 1.5rem;
+}
+
+.feature-explanation li {
+  margin-bottom: 0.5rem;
+}
+
 /* Code Section Styles */
 .code-container {
   margin-bottom: 2rem;
@@ -319,10 +437,17 @@ main {
   border-radius: 6px;
   padding: 1rem;
   overflow-x: auto;
+  margin-bottom: 1.5rem;
 }
 
 .code-section h4 {
   margin-bottom: 0.75rem;
+  color: var(--primary-color);
+}
+
+.code-section p {
+  margin-bottom: 0.75rem;
+  color: #555;
 }
 
 pre {
@@ -330,6 +455,25 @@ pre {
   border-radius: 4px;
   padding: 1rem;
   overflow-x: auto;
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ccc;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.copy-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 code {
@@ -337,8 +481,16 @@ code {
   color: #e6e6e6;
 }
 
+code.inline {
+  background-color: #f5f5f5;
+  color: #333;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
 /* GitHub Section Styles */
-.github-container, .deployment-container {
+.github-container, .deployment-container, .deployment-best-practices {
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -346,16 +498,21 @@ code {
   margin-bottom: 1.5rem;
 }
 
-.github-container h3, .deployment-container h3 {
+.github-container h3, .deployment-container h3, .deployment-best-practices h3 {
   color: var(--secondary-color);
   margin-bottom: 1rem;
 }
 
-.github-container ol, .deployment-container ol {
+.github-container p, .deployment-container p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.github-container ol, .deployment-container ol, .deployment-best-practices ul {
   margin-left: 1.5rem;
 }
 
-.github-container li, .deployment-container li {
+.github-container li, .deployment-container li, .deployment-best-practices li {
   margin-bottom: 0.75rem;
 }
 
@@ -367,6 +524,10 @@ footer {
   color: #666;
   border-top: 1px solid var(--border-color);
   margin-top: 2rem;
+}
+
+footer p {
+  margin-bottom: 0.5rem;
 }
 
 /* Responsive Styles */
