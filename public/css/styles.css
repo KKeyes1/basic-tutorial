@@ -1,0 +1,413 @@
+/* Base Styles */
+:root {
+  --primary-color: #4285f4; /* Google Blue */
+  --secondary-color: #34a853; /* Google Green */
+  --accent-color: #ea4335; /* Google Red */
+  --light-color: #fafafa;
+  --dark-color: #333;
+  --border-color: #ddd;
+  --success-color: #4caf50;
+  --warning-color: #ff9800;
+  --error-color: #f44336;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: var(--dark-color);
+  background-color: var(--light-color);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Header Styles */
+header {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-right: 2rem;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+}
+
+nav ul li {
+  margin-right: 1.5rem;
+}
+
+nav ul li a {
+  font-weight: 600;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+nav ul li a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+#auth-container {
+  display: flex;
+  align-items: center;
+}
+
+.auth-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.auth-btn:hover {
+  background-color: #3367d6;
+}
+
+#logout-btn {
+  background-color: #f1f1f1;
+  color: var(--dark-color);
+}
+
+#logout-btn:hover {
+  background-color: #e0e0e0;
+}
+
+#user-profile {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+}
+
+#user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+/* Main Content Styles */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.page-section {
+  margin-bottom: 3rem;
+  padding-top: 2rem;
+}
+
+.page-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+/* Setup Section Styles */
+.setup-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.setup-step {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.setup-step h3 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.setup-content ol, .setup-content ul {
+  margin-left: 1.5rem;
+}
+
+.setup-content li {
+  margin-bottom: 0.75rem;
+}
+
+/* Demo Section Styles */
+#auth-notice {
+  background-color: #fffde7;
+  padding: 1rem;
+  border-left: 4px solid var(--warning-color);
+  margin-bottom: 1.5rem;
+}
+
+#demo-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+#configuration-panel {
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.input-group {
+  margin-top: 0.75rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.warning {
+  color: var(--error-color);
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+#chat-container {
+  margin-top: 2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+#messages-container {
+  height: 300px;
+  overflow-y: auto;
+  padding: 1rem;
+  background-color: #f9f9f9;
+}
+
+.message {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  max-width: 80%;
+}
+
+.user-message {
+  background-color: #e3f2fd;
+  margin-left: auto;
+}
+
+.ai-message {
+  background-color: #f1f8e9;
+}
+
+#input-container {
+  display: flex;
+  border-top: 1px solid var(--border-color);
+}
+
+#prompt-input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  resize: none;
+  font-family: inherit;
+  font-size: 1rem;
+  min-height: 80px;
+}
+
+#send-prompt-btn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+#send-prompt-btn:hover {
+  background-color: #3367d6;
+}
+
+#saved-prompts {
+  margin-top: 2rem;
+}
+
+#saved-prompts h4 {
+  margin-bottom: 1rem;
+}
+
+#saved-prompts-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.saved-prompt-card {
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.saved-prompt-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Code Section Styles */
+.code-container {
+  margin-bottom: 2rem;
+}
+
+.code-section {
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.code-section h4 {
+  margin-bottom: 0.75rem;
+}
+
+pre {
+  background-color: #282c34;
+  border-radius: 4px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  color: #e6e6e6;
+}
+
+/* GitHub Section Styles */
+.github-container, .deployment-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.github-container h3, .deployment-container h3 {
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.github-container ol, .deployment-container ol {
+  margin-left: 1.5rem;
+}
+
+.github-container li, .deployment-container li {
+  margin-bottom: 0.75rem;
+}
+
+/* Footer Styles */
+footer {
+  background-color: #f5f5f5;
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+  border-top: 1px solid var(--border-color);
+  margin-top: 2rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  header h1 {
+    margin-bottom: 1rem;
+  }
+  
+  nav ul {
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  nav ul li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .setup-container {
+    grid-template-columns: 1fr;
+  }
+  
+  #saved-prompts-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 1rem;
+  }
+  
+  .page-section {
+    padding-top: 1rem;
+  }
+  
+  #demo-container {
+    padding: 1rem;
+  }
+} 
