@@ -464,13 +464,20 @@ function loadSavedPrompts(userId) {
     // This function retrieves the user's saved prompts from Firestore
     // and displays them in the saved-prompts-list section
     
+    console.log("Loading saved prompts for user:", userId);
+    
     const savedPromptsList = document.getElementById('saved-prompts-list');
     const savedPromptsSection = document.getElementById('saved-prompts');
     
-    // Show loading indicator
-    if (savedPromptsList) {
-        savedPromptsList.innerHTML = '<div class="loading">Loading saved prompts...</div>';
+    if (!savedPromptsList) {
+        console.error("Cannot load prompts: #saved-prompts-list element not found");
+        return;
     }
+    
+    // Show loading indicator
+    savedPromptsList.innerHTML = '<div class="loading">Loading saved prompts...</div>';
+    
+    console.log("Querying Firestore path:", `users/${userId}/prompts`);
     
     // Query Firestore for the user's prompts
     firebase.firestore()
@@ -481,22 +488,23 @@ function loadSavedPrompts(userId) {
         .limit(10) // Limit to most recent 10 for performance
         .get()
         .then(querySnapshot => {
+            console.log("Firestore query returned. Empty?", querySnapshot.empty);
+            
             // Clear the loading message
-            if (savedPromptsList) {
-                savedPromptsList.innerHTML = '';
-            }
+            savedPromptsList.innerHTML = '';
             
             // Check if there are any prompts
             if (querySnapshot.empty) {
-                if (savedPromptsList) {
-                    savedPromptsList.innerHTML = '<div class="no-prompts">No saved prompts yet.</div>';
-                }
+                savedPromptsList.innerHTML = '<div class="no-prompts">No saved prompts yet.</div>';
                 return;
             }
+            
+            console.log("Found", querySnapshot.size, "prompts in Firestore");
             
             // Display each prompt
             querySnapshot.forEach(doc => {
                 const data = doc.data();
+                console.log("Processing prompt document:", doc.id, data);
                 addPromptToList(doc.id, data.prompt, data.response, data.timestamp);
             });
             
@@ -506,10 +514,8 @@ function loadSavedPrompts(userId) {
             }
         })
         .catch(error => {
-            console.error('Error loading prompts:', error);
-            if (savedPromptsList) {
-                savedPromptsList.innerHTML = `<div class="error">Error loading prompts: ${error.message}</div>`;
-            }
+            console.error('Error loading prompts from Firestore:', error);
+            savedPromptsList.innerHTML = `<div class="error">Error loading prompts: ${error.message}</div>`;
         });
 }
 

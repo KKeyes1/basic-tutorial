@@ -465,28 +465,46 @@ function removeStatusMessage(messageId) {
 // Save conversation to Firestore
 function saveToFirestore(prompt, response) {
     const user = firebase.auth().currentUser;
-    if (!user) return;
+    console.log("Attempting to save to Firestore for user:", user ? user.uid : "No user");
+    
+    if (!user) {
+        console.error("Cannot save to Firestore: No authenticated user");
+        return;
+    }
+    
+    // Create reference
+    const promptsRef = firebase.firestore().collection('users')
+        .doc(user.uid)
+        .collection('prompts');
+    
+    console.log("Saving prompt to Firestore path:", `users/${user.uid}/prompts`);
+    
+    // Data to save
+    const promptData = {
+        prompt: prompt,
+        response: response,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    
+    console.log("Prompt data to save:", promptData);
     
     // Save prompt to user's prompts collection
-    firebase.firestore().collection('users')
-        .doc(user.uid)
-        .collection('prompts')
-        .add({
-            prompt: prompt,
-            response: response,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        })
+    promptsRef.add(promptData)
         .then(docRef => {
-            console.log('Conversation saved with ID:', docRef.id);
+            console.log('Conversation successfully saved to Firestore with ID:', docRef.id);
+            displayStatusMessage('Conversation saved to your history', 'success');
             
             // Update the saved prompts list if the function exists
             if (typeof loadSavedPrompts === 'function') {
+                console.log("Calling loadSavedPrompts to refresh list");
                 loadSavedPrompts(user.uid);
+            } else {
+                console.warn("loadSavedPrompts function not found");
             }
         })
         .catch(error => {
-            console.error('Error saving conversation:', error);
-            displayStatusMessage('Failed to save conversation', 'error');
+            console.error('Error saving conversation to Firestore:', error);
+            displayStatusMessage('Failed to save conversation: ' + error.message, 'error');
         });
 }
 
